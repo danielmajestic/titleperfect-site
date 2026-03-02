@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TitlePerfect — Sign In</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: #0F172A;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .card {
+      background: #1E293B;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Logo / wordmark */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #3B82F6, #60A5FA);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: #F8FAFC;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-text span {
+      color: #F59E0B;
+    }
+
+    /* Heading */
+    .card-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #F8FAFC;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+      color: #94A3B8;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    /* Form */
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #CBD5E1;
+      margin-bottom: 6px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%;
+      background: #0F172A;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: inherit;
+      font-size: 15px;
+      color: #F8FAFC;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="text"]:focus {
+      border-color: #3B82F6;
+    }
+
+    input[type="email"].error,
+    input[type="password"].error,
+    input[type="text"].error {
+      border-color: #EF4444;
+    }
+
+    input[type="password"] {
+      padding-right: 44px;
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #64748B;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+
+    .toggle-pw:hover { color: #94A3B8; }
+
+    .field-error {
+      font-size: 12px;
+      color: #EF4444;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .field-error.visible { display: block; }
+
+    /* Primary button */
+    .btn-primary {
+      width: 100%;
+      background: #3B82F6;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 16px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn-primary:hover:not(:disabled) { background: #2563EB; }
+    .btn-primary:disabled { opacity: 0.65; cursor: not-allowed; }
+
+    /* Spinner */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Links */
+    .links {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #94A3B8;
+      line-height: 1.8;
+    }
+
+    .links a {
+      color: #F59E0B;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .links a:hover { text-decoration: underline; }
+
+    /* Success message */
+    .success-box {
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #6EE7B7;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    /* Global error */
+    .global-error {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.25);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #FCA5A5;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .global-error.visible { display: block; }
+
+    /* Form sections */
+    .form-section { display: none; }
+    .form-section.active { display: block; }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin: 20px 0;
+    }
+
+    /* Transition */
+    .card { animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Logo -->
+  <div class="logo">
+    <div class="logo-icon">
+      <!-- "T" checkmark icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 5h8v2H8v12H6V7H3V5zm9 0h9v2h-4v12h-2V7h-3V5zm-1 7l-2 2 4 4 6-7-1.5-1.5L13 15.5l-2-2L11 12z"/>
+      </svg>
+    </div>
+    <span class="logo-text">Title<span>Perfect</span></span>
+  </div>
+
+  <!-- Global error -->
+  <div class="global-error" id="globalError"></div>
+
+  <!-- SIGN IN section -->
+  <div class="form-section" id="sectionSignin">
+    <div class="card-title">Welcome back</div>
+    <div class="card-subtitle">Sign in to your TitlePerfect account</div>
+
+    <form id="formSignin" novalidate>
+      <div class="field">
+        <label for="signinEmail">Email address</label>
+        <input type="email" id="signinEmail" autocomplete="email" placeholder="you@example.com" />
+        <div class="field-error" id="signinEmailErr"></div>
+      </div>
+      <div class="field">
+        <label for="signinPassword">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="signinPassword" autocomplete="current-password" placeholder="••••••••" />
+          <button type="button" class="toggle-pw" data-target="signinPassword" aria-label="Toggle password visibility">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" class="eye-open"/>
+              <circle cx="12" cy="12" r="3" class="eye-open"/>
+              <line x1="1" y1="1" x2="23" y2="23" class="eye-closed" style="display:none"/>
+              <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" class="eye-closed" style="display:none"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" class="eye-closed" style="display:none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="field-error" id="signinPasswordErr"></div>
+      </div>
+      <button type="submit" class="btn-primary" id="btnSignin">
+        <span class="btn-label">Sign In</span>
+      </button>
+    </form>
+
+    <div class="links">
+      <a id="linkForgot">Forgot password?</a><br>
+      Don't have an account? <a id="linkGoSignup">Create one</a>
+    </div>
+  </div>
+
+  <!-- SIGN UP section -->
+  <div class="form-section" id="sectionSignup">
+    <div class="card-title">Create account</div>
+    <div class="card-subtitle">Start optimizing your Amazon titles</div>
+
+    <form id="formSignup" novalidate>
+      <div class="field">
+        <label for="signupEmail">Email address</label>
+        <input type="email" id="signupEmail" autocomplete="email" placeholder="you@example.com" />
+        <div class="field-error" id="signupEmailErr"></div>
+      </div>
+      <div class="field">
+        <label for="signupPassword">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="signupPassword" autocomplete="new-password" placeholder="Min. 6 characters" />
+          <button type="button" class="toggle-pw" data-target="signupPassword" aria-label="Toggle password visibility">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" class="eye-open"/>
+              <circle cx="12" cy="12" r="3" class="eye-open"/>
+              <line x1="1" y1="1" x2="23" y2="23" class="eye-closed" style="display:none"/>
+              <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" class="eye-closed" style="display:none"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" class="eye-closed" style="display:none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="field-error" id="signupPasswordErr"></div>
+      </div>
+      <div class="field">
+        <label for="signupConfirm">Confirm password</label>
+        <div class="input-wrap">
+          <input type="password" id="signupConfirm" autocomplete="new-password" placeholder="Re-enter password" />
+          <button type="button" class="toggle-pw" data-target="signupConfirm" aria-label="Toggle password visibility">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" class="eye-open"/>
+              <circle cx="12" cy="12" r="3" class="eye-open"/>
+              <line x1="1" y1="1" x2="23" y2="23" class="eye-closed" style="display:none"/>
+              <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" class="eye-closed" style="display:none"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" class="eye-closed" style="display:none"/>
+            </svg>
+          </button>
+        </div>
+        <div class="field-error" id="signupConfirmErr"></div>
+      </div>
+      <button type="submit" class="btn-primary" id="btnSignup">
+        <span class="btn-label">Create Account</span>
+      </button>
+    </form>
+
+    <div class="links">
+      Already have an account? <a id="linkGoSignin">Sign in</a>
+    </div>
+  </div>
+
+  <!-- RESET section -->
+  <div class="form-section" id="sectionReset">
+    <div class="card-title">Reset password</div>
+    <div class="card-subtitle">Enter your email to receive a reset link</div>
+
+    <div class="success-box" id="resetSuccess" style="display:none">
+      Reset link sent! Check your email.
+    </div>
+
+    <form id="formReset" novalidate>
+      <div class="field">
+        <label for="resetEmail">Email address</label>
+        <input type="email" id="resetEmail" autocomplete="email" placeholder="you@example.com" />
+        <div class="field-error" id="resetEmailErr"></div>
+      </div>
+      <button type="submit" class="btn-primary" id="btnReset">
+        <span class="btn-label">Send Reset Link</span>
+      </button>
+    </form>
+
+    <div class="links">
+      <a id="linkGoSigninFromReset">Back to Sign In</a>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail
+  } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+  // ── Firebase config ──────────────────────────────────────────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyD9bhupwn_19wSDYDdoaPYAfbOCzBN-TFQ",
+    authDomain: "titleperfect-e3a1c.firebaseapp.com",
+    projectId: "titleperfect-e3a1c",
+    storageBucket: "titleperfect-e3a1c.firebasestorage.app",
+    messagingSenderId: "119656431080",
+    appId: "1:119656431080:web:99c164e2d191a78e883830"
+  };
+
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // ── URL params ───────────────────────────────────────────────────────────────
+  const params      = new URLSearchParams(window.location.search);
+  const redirectUri = params.get('redirect_uri') || '';
+  const initMode    = (params.get('mode') || 'signin').toLowerCase();
+
+  // ── Helpers ──────────────────────────────────────────────────────────────────
+  function friendlyError(code) {
+    const map = {
+      'auth/wrong-password':        'Incorrect password',
+      'auth/invalid-credential':    'Incorrect email or password',
+      'auth/user-not-found':        'No account found with this email',
+      'auth/email-already-in-use':  'An account already exists with this email',
+      'auth/weak-password':         'Password must be at least 6 characters',
+      'auth/invalid-email':         'Invalid email address',
+      'auth/too-many-requests':     'Too many attempts. Please try again later',
+    };
+    return map[code] || 'Authentication failed. Please try again';
+  }
+
+  function redirectSuccess(user, idToken) {
+    if (!redirectUri) return;
+    const url = redirectUri
+      + '?token='  + encodeURIComponent(idToken)
+      + '&uid='    + encodeURIComponent(user.uid)
+      + '&email='  + encodeURIComponent(user.email);
+    window.location.href = url;
+  }
+
+  function redirectError(msg) {
+    if (!redirectUri) return;
+    window.location.href = redirectUri + '?error=' + encodeURIComponent(msg);
+  }
+
+  function setLoading(btn, loading) {
+    btn.disabled = loading;
+    const label = btn.querySelector('.btn-label');
+    let spinner = btn.querySelector('.spinner');
+    if (loading) {
+      if (!spinner) {
+        spinner = document.createElement('div');
+        spinner.className = 'spinner';
+        btn.prepend(spinner);
+      }
+      label.textContent = '';
+    } else {
+      if (spinner) spinner.remove();
+    }
+  }
+
+  function setButtonLabel(btn, text) {
+    btn.querySelector('.btn-label').textContent = text;
+  }
+
+  function showGlobalError(msg) {
+    const el = document.getElementById('globalError');
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  function clearGlobalError() {
+    const el = document.getElementById('globalError');
+    el.textContent = '';
+    el.classList.remove('visible');
+  }
+
+  function showFieldError(id, msg) {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = msg; el.classList.add('visible'); }
+    // Mark input as error
+    const inputId = id.replace('Err', '');
+    const input = document.getElementById(inputId);
+    if (input) input.classList.add('error');
+  }
+
+  function clearFieldErrors(...ids) {
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = ''; el.classList.remove('visible'); }
+      const inputId = id.replace('Err', '');
+      const input = document.getElementById(inputId);
+      if (input) input.classList.remove('error');
+    });
+  }
+
+  // ── Mode switching ───────────────────────────────────────────────────────────
+  const sections = { signin: 'sectionSignin', signup: 'sectionSignup', reset: 'sectionReset' };
+
+  function showMode(mode) {
+    clearGlobalError();
+    Object.values(sections).forEach(id => document.getElementById(id).classList.remove('active'));
+    const target = sections[mode] || sections.signin;
+    document.getElementById(target).classList.add('active');
+    // Focus first input
+    const first = document.getElementById(target).querySelector('input');
+    if (first) setTimeout(() => first.focus(), 50);
+  }
+
+  // Initial mode
+  showMode(initMode);
+
+  // ── Mode link wiring ─────────────────────────────────────────────────────────
+  document.getElementById('linkForgot').addEventListener('click',           () => showMode('reset'));
+  document.getElementById('linkGoSignup').addEventListener('click',         () => showMode('signup'));
+  document.getElementById('linkGoSignin').addEventListener('click',         () => showMode('signin'));
+  document.getElementById('linkGoSigninFromReset').addEventListener('click',() => showMode('signin'));
+
+  // ── Password toggle ──────────────────────────────────────────────────────────
+  document.querySelectorAll('.toggle-pw').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById(btn.dataset.target);
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      btn.querySelectorAll('.eye-open').forEach(el  => el.style.display = isPassword ? 'none' : '');
+      btn.querySelectorAll('.eye-closed').forEach(el => el.style.display = isPassword ? ''     : 'none');
+    });
+  });
+
+  // ── Sign In ──────────────────────────────────────────────────────────────────
+  const formSignin = document.getElementById('formSignin');
+  const btnSignin  = document.getElementById('btnSignin');
+
+  formSignin.addEventListener('submit', async e => {
+    e.preventDefault();
+    clearGlobalError();
+    clearFieldErrors('signinEmailErr', 'signinPasswordErr');
+
+    const email    = document.getElementById('signinEmail').value.trim();
+    const password = document.getElementById('signinPassword').value;
+
+    if (!email)    { showFieldError('signinEmailErr',    'Please enter your email');    return; }
+    if (!password) { showFieldError('signinPasswordErr', 'Please enter your password'); return; }
+
+    setLoading(btnSignin, true);
+    try {
+      const cred  = await signInWithEmailAndPassword(auth, email, password);
+      const token = await cred.user.getIdToken();
+      redirectSuccess(cred.user, token);
+    } catch (err) {
+      setLoading(btnSignin, false);
+      setButtonLabel(btnSignin, 'Sign In');
+      const msg = friendlyError(err.code);
+      showGlobalError(msg);
+      // Don't redirect — let user retry
+    }
+  });
+
+  // ── Sign Up ──────────────────────────────────────────────────────────────────
+  const formSignup = document.getElementById('formSignup');
+  const btnSignup  = document.getElementById('btnSignup');
+
+  formSignup.addEventListener('submit', async e => {
+    e.preventDefault();
+    clearGlobalError();
+    clearFieldErrors('signupEmailErr', 'signupPasswordErr', 'signupConfirmErr');
+
+    const email    = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirm  = document.getElementById('signupConfirm').value;
+
+    let valid = true;
+    if (!email)    { showFieldError('signupEmailErr',    'Please enter your email');        valid = false; }
+    if (!password) { showFieldError('signupPasswordErr', 'Please enter a password');        valid = false; }
+    else if (password.length < 6) { showFieldError('signupPasswordErr', 'Password must be at least 6 characters'); valid = false; }
+    if (password && confirm !== password) { showFieldError('signupConfirmErr', 'Passwords do not match'); valid = false; }
+    if (!valid) return;
+
+    setLoading(btnSignup, true);
+    try {
+      const cred  = await createUserWithEmailAndPassword(auth, email, password);
+      const token = await cred.user.getIdToken();
+      redirectSuccess(cred.user, token);
+    } catch (err) {
+      setLoading(btnSignup, false);
+      setButtonLabel(btnSignup, 'Create Account');
+      const msg = friendlyError(err.code);
+      if (err.code === 'auth/email-already-in-use') {
+        showFieldError('signupEmailErr', msg);
+      } else {
+        showGlobalError(msg);
+      }
+    }
+  });
+
+  // ── Password Reset ───────────────────────────────────────────────────────────
+  const formReset  = document.getElementById('formReset');
+  const btnReset   = document.getElementById('btnReset');
+  const resetSucc  = document.getElementById('resetSuccess');
+
+  formReset.addEventListener('submit', async e => {
+    e.preventDefault();
+    clearGlobalError();
+    clearFieldErrors('resetEmailErr');
+    resetSucc.style.display = 'none';
+
+    const email = document.getElementById('resetEmail').value.trim();
+    if (!email) { showFieldError('resetEmailErr', 'Please enter your email'); return; }
+
+    setLoading(btnReset, true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setLoading(btnReset, false);
+      setButtonLabel(btnReset, 'Send Reset Link');
+      resetSucc.style.display = 'block';
+      formReset.style.display = 'none';
+    } catch (err) {
+      setLoading(btnReset, false);
+      setButtonLabel(btnReset, 'Send Reset Link');
+      const msg = friendlyError(err.code);
+      showGlobalError(msg);
+    }
+  });
+</script>
+
+</body>
+</html>
