@@ -1,0 +1,7 @@
+# Serve these files directly — must come BEFORE the catch-all
+/auth.html             /auth.html             200
+/privacy-policy.html   /privacy-policy.html   200
+/terms.html            /terms.html            200
+
+# SPA catch-all
+/*  /index.html  200
