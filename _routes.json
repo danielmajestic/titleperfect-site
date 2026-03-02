@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/auth.html",
+    "/privacy-policy.html",
+    "/terms.html",
+    "/blog/*",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/assets/*"
+  ]
+}
